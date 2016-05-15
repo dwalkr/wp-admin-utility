@@ -32,5 +32,84 @@ namespace dwalkr\WPAdminUtility;
  * @author DJ
  */
 class PageCreator {
-    //put your code here
+
+    const FROM_FILE = 1;
+    const FROM_ARRAY = 2;
+    const FROM_OBJECT = 3;
+
+    private $templateHandler;
+
+    public function __construct($templateHandler) {
+        $this->templateHandler = $templateHandler;
+    }
+
+    private static function parseFile($file) {
+        if (!file_exists($file)) {
+            throw new \InvalidArgumentException("File $file not found");
+        }
+        $extension = pathinfo($file, PATHINFO_EXTENSION);
+
+        switch ($extension) {
+            case 'php':
+                return self::getConfigObject(require($file), self::FROM_ARRAY);
+
+            case 'json':
+                return json_decode(file_get_contents($file));
+
+            case 'yaml':
+            case 'yml':
+                //TODO: cache parsed YAML data as this parse is less performant than native php
+                $parser = new \Symfony\Component\Yaml\Parser();
+                return $parser->parse(file_get_contents($file), true, true, true);
+        }
+    }
+
+    /**
+     * return $config object based on method
+     * @param type $config
+     * @param type $method
+     */
+    private static function getConfigObject($config, $method = self::FROM_FILE) {
+        switch ($method) {
+           case self::FROM_FILE:
+           default:
+               return self::parseFile($config);
+           case self::FROM_ARRAY:
+               return json_decode(json_encode($config));
+           case self::FROM_OBJECT:
+               return $config;
+       }
+    }
+
+    /**
+     * Registers and builds admin interface for a custom post type.
+     * @param type $config
+     * @param type $method
+     */
+    public function addPostType($config, $method = self::FROM_FILE) {
+        $configData = self::getConfigObject($config, $method);
+        PostType::createFromConfig($configData);
+    }
+
+    /**
+     * creates and builds admin interface for a settings page.
+     * @param type $config
+     * @param type $method
+     */
+    public function addSettingsPage($config, $method = self::FROM_FILE) {
+        $configData = self::getConfigObject($config, $method);
+        SettingsPage::createFromConfig($configData);
+    }
+
+    /**
+     * creates and builds admin interface for custom table data.
+     * currently only supports flat tables but is extensible via custom field types.
+     * @param type $config
+     * @param type $method
+     */
+    public function addTableEntitiy($config, $method = self::FROM_FILE) {
+        $configData = self::getConfigObject($config, $method);
+        TableEntity::createFromConfig($configData);
+    }
+
 }

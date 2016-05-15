@@ -36,11 +36,8 @@ class Plugin {
     private $basePath;
     private $baseUrl;
 
-    private function __construct($base_path, $base_url) {
-        $this->basePath = $base_path;
-        $this->baseUrl = $base_url;
-        $this->init();
-    }
+    private $templateLoader;
+    private $pageCreator;
 
     /**
      * instantiate singleton and run init
@@ -55,7 +52,20 @@ class Plugin {
     }
 
     public static function activate() {
-        
+
+    }
+
+    private function __construct($base_path, $base_url) {
+        $this->basePath = $base_path;
+        $this->baseUrl = $base_url;
+        $this->templateHandler = new TemplateHandler($this->base_path . '/view', 'wp-admin-utility');
+        $this->pageCreator = new PageCreator($this->templateHandler);
+        add_action('after_setup_theme', array($this, 'runPageCreator')); //this will catch hooks created in theme functions.php but before 'init'
+    }
+
+    public function runPageCreator() {
+        //expose pageCreator to userland code
+        do_action('adminutility-pagecreator-init', $this->pageCreator);
     }
 
 }
