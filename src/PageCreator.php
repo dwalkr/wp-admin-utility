@@ -3,7 +3,7 @@
 /*
  * The MIT License
  *
- * Copyright 2016 Donald Walker <donwalker1987@gmail.com>.
+ * Copyright 2016 DJ Walker <donwalker1987@gmail.com>.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -88,7 +88,7 @@ class PageCreator {
      */
     public function addPostType($config, $method = self::FROM_FILE) {
         $configData = self::getConfigObject($config, $method);
-        PostType::createFromConfig($configData);
+        PostType::createFromConfig($configData, $this->templateHandler);
     }
 
     /**
@@ -98,7 +98,7 @@ class PageCreator {
      */
     public function addSettingsPage($config, $method = self::FROM_FILE) {
         $configData = self::getConfigObject($config, $method);
-        SettingsPage::createFromConfig($configData);
+        SettingsPage::createFromConfig($configData, $this->templateHandler);
     }
 
     /**
@@ -109,7 +109,7 @@ class PageCreator {
      */
     public function addTableEntitiy($config, $method = self::FROM_FILE) {
         $configData = self::getConfigObject($config, $method);
-        TableEntity::createFromConfig($configData);
+        TableEntity::createFromConfig($configData, $this->templateHandler);
     }
 
 }
