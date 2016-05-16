@@ -34,15 +34,15 @@ namespace dwalkr\WPAdminUtility;
 class FieldSection {
 
     private $configData;
-    private $fields = array();
+    public $fields = array();
     private $templateHandler;
 
-    public function __construct($data, $templateHandler) {
+    public function __construct($data, $templateHandler, $optionData) {
         $this->configData = $data;
         $this->templateHandler = $templateHandler;
 
         foreach ($this->configData->fields as $fieldData) {
-            $this->fields[] = Field::create($fieldData, $this->templateHandler);
+            $this->fields[] = Field::create($fieldData, $this->templateHandler, $optionData[$fieldData->name]);
         }
     }
 

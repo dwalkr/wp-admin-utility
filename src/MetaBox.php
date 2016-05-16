@@ -42,7 +42,9 @@ class MetaBox {
         $this->templateHandler = $templateHandler;
 
         foreach ($this->configData->fields as $fieldData) {
-            $this->fields[] = Field::create($fieldData, $this->templateHandler);
+            $post_id = $_GET['post'];
+            $data = get_post_meta($post_id, $fieldData->name, true);
+            $this->fields[] = Field::create($fieldData, $this->templateHandler, $data);
         }
     }
 

@@ -38,46 +38,48 @@ abstract class Field {
 
     protected $configData;
     protected $templateHandler;
+    protected $data;
 
     abstract function render();
 
-    public function __construct($data, $templateHandler) {
-        $this->configData = $data;
+    public function __construct($configData, $templateHandler, $data) {
+        $this->configData = $configData;
         $this->templateHandler = $templateHandler;
+        $this->data = $data;
         if (method_exists($this, 'init')) {
             $this->init();
         }
     }
 
-    public static function create($fieldData, $templateHandler) {
-        switch ($fieldData->type) {
+    public static function create($fieldConfig, $templateHandler, $data) {
+        switch ($fieldConfig->type) {
             case 'text':
             default:
-                return new Field\Text($fieldData, $templateHandler);
+                return new Field\Text($fieldConfig, $templateHandler, $data);
             case 'textarea':
-                return new Field\Textarea($fieldData, $templateHandler);
+                return new Field\Textarea($fieldConfig, $templateHandler, $data);
             case 'select':
-                return new Field\Select($fieldData, $templateHandler);
+                return new Field\Select($fieldConfig, $templateHandler, $data);
             case 'date':
-                return new Field\Date($fieldData, $templateHandler);
+                return new Field\Date($fieldConfig, $templateHandler, $data);
             case 'datetime':
-                return new Field\DateTime($fieldData, $templateHandler);
+                return new Field\DateTime($fieldConfig, $templateHandler, $data);
             case 'time':
-                return new Field\Time($fieldData, $templateHandler);
+                return new Field\Time($fieldConfig, $templateHandler, $data);
             case 'post':
-                $fieldData->options = self::getPostRelOptions($fieldData);
-                return new Field\Select($fieldData, $templateHandler);
+                $fieldConfig->options = self::getPostRelOptions($fieldConfig);
+                return new Field\Select($fieldConfig, $templateHandler, $data);
             case 'rel':
-                $fieldData->options = self::getRelOptions($fieldData);
-                return new Field\Select($fieldData, $templateHandler);
+                $fieldConfig->options = self::getRelOptions($fieldConfig);
+                return new Field\Select($fieldConfig, $templateHandler, $data);
             case 'class':
-                $className = '\\'.$fieldData->class;
-                return new $className($fieldData, $templateHandler);
+                $className = '\\'.$fieldConfig->class;
+                return new $className($fieldConfig, $templateHandler, $data);
             case 'attachment':
-                return new Field\Attachment($fieldData, $templateHandler);
+                return new Field\Attachment($fieldConfig, $templateHandler, $data);
             case 'editor':
             case 'wysiwyg':
-                return new Field\Editor($fieldData, $templateHandler);
+                return new Field\Editor($fieldConfig, $templateHandler, $data);
         }
     }
 
@@ -130,7 +132,7 @@ abstract class Field {
     }
 
     public function getFieldValue() {
-        return get_post_meta(get_the_ID(), $this->getKey(), true);
+        return $this->data;
     }
 
     public function getKey() {

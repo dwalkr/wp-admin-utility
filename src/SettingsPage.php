@@ -37,6 +37,7 @@ class SettingsPage {
     private $configData;
     private $templateHandler;
     private $tabs = array();
+    private $optionData;
 
     public static function createFromConfig($configData, $templateHandler) {
         return new static($configData, $templateHandler);
@@ -45,11 +46,15 @@ class SettingsPage {
     public function __construct($configData, $templateHandler) {
         $this->configData = $configData;
         $this->templateHandler = $templateHandler;
+        $this->optionData = get_option($this->configData->name);
+        if (!is_array($this->optionData)) {
+            $this->optionData = array();
+        }
 
         foreach ($this->configData->sections as $sectionData) {
             $tab = property_exists($sectionData, 'tab') ? $sectionData->tab : 'default';
 
-            $this->tabs[$tab] = new FieldSection($sectionData, $this->templateHandler);
+            $this->tabs[$tab] = new FieldSection($sectionData, $this->templateHandler, $this->optionData);
         }
 
         add_action('admin_menu', array($this, 'addMenuPages'));
@@ -101,12 +106,20 @@ class SettingsPage {
 
     public function renderPage() {
 
+        require $this->templateHandler->getView('page-start');
+
         $tabs = array_keys($this->tabs);
+
+        foreach ($this->tabs as $tab=>$section) {
+            $section->display();
+        }
+
+        require $this->templateHandler->getView('page-end');
 
     }
 
     public function save() {
-        $optionData = get_option($this->configData->name);
+        check_admin_referer(esc_attr($this->configData->name), 'adminUtilityNonce');
         $newOptionData = array();
 
         foreach ($this->tabs as $tab=>$section) {
@@ -120,6 +133,9 @@ class SettingsPage {
             }
         }
 
-        update_option($this->configData->name, array_merge($optionData, $newOptionData));
+        update_option($this->configData->name, array_merge($this->optionData, $newOptionData));
+
+        wp_redirect(admin_url('admin.php?page='.$_POST['redirect']));
+        die;
     }
 }
