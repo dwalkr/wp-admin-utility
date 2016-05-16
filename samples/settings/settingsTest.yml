@@ -1,0 +1,39 @@
+---
+#option name
+name: mycustomsettings
+title: Custom Settings for Plugin
+#page slug
+slug: mycustomsettings
+
+menu:
+    title: My Custom Settings
+    capability: manage_options
+    top:
+        # settings for top level page
+        icon: dashicons-chart-pie
+        position: 5
+    parent: edit.php?post_type=events
+
+sections:
+    - title: First fieldset
+      #use this to have multiple tabs
+      tab: Main settings
+      fields:
+          - name: adate
+            type: datetime
+            label: Some Date
+          - name: image
+            type: attachment
+            label: Some upload
+          - name: wysi
+            label: wysiwyg
+            type: editor
+
+    - title: Second fieldset
+      tab: misc
+      fields:
+          - name: test
+            type: textarea
+            label: Some text
+
+
