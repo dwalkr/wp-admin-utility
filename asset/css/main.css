@@ -37,3 +37,6 @@ THE SOFTWARE.
 .ui.button {
     float: none;
 }
+.field-description.ui.message {
+    font-size: .8em;
+}

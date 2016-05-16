@@ -1,5 +1,6 @@
 <select name="<?=esc_attr($this->configData->name);?>"
-       class="<?=$this->getConfigData('searchable') === true ? 'search' : '';?>">
+       class="<?=$this->getConfigData('searchable') === true ? 'search' : '';?>"
+       <?=$this->getConfigData('multiple') === true ? ' multiple' : '';?>>
     <?php foreach ($this->getOptions() as $option) :
         if (is_object($option)) {
             $val = $option->value;

@@ -2,4 +2,7 @@
     <?php if (property_exists($this->configData, 'label')) : ?>
     <label><?=esc_html($this->configData->label);?></label>
     <?php endif;?>
+    <?php if (property_exists($this->configData, 'description')) : ?>
+    <div class="field-description ui message"><?=esc_html($this->configData->description);?></div>
+    <?php endif; ?>
 
