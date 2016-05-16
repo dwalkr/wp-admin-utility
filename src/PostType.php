@@ -81,11 +81,11 @@ class PostType {
         $args = self::generatePostArgs($this->configData);
         $args['register_meta_box_cb'] = array($this, 'addMetaBoxes');
 
-        register_post_type($data->name, $args);
+        register_post_type($this->configData->name, $args);
 
-        if (property_exists($data, 'metaboxes')) {
-            foreach ($data->metaboxes as $boxData) {
-                $this->metaboxes[] = new MetaBox($boxData);
+        if (property_exists($this->configData, 'metaboxes')) {
+            foreach ($this->configData->metaboxes as $boxData) {
+                $this->metaboxes[] = new MetaBox($boxData, $this->templateHandler);
             }
         }
     }

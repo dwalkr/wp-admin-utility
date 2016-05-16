@@ -42,7 +42,7 @@ class MetaBox {
         $this->templateHandler = $templateHandler;
 
         foreach ($this->configData->fields as $fieldData) {
-            $this->fields[] = Field::create($fieldData);
+            $this->fields[] = Field::create($fieldData, $this->templateHandler);
         }
     }
 

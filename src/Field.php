@@ -46,31 +46,31 @@ abstract class Field {
         }
     }
 
-    public static function create($fieldData) {
+    public static function create($fieldData, $templateHandler) {
         switch ($fieldData->type) {
             case 'text':
             default:
-                return new Field\Text($fieldData);
+                return new Field\Text($fieldData, $templateHandler);
             case 'textarea':
-                return new Field\Textarea($fieldData);
+                return new Field\Textarea($fieldData, $templateHandler);
             case 'select':
-                return new Field\Select($fieldData);
+                return new Field\Select($fieldData, $templateHandler);
             case 'date':
-                return new Field\Date($fieldData);
+                return new Field\Date($fieldData, $templateHandler);
             case 'post':
                 $fieldData->options = self::getPostRelOptions($fieldData);
-                return new Field\Select($fieldData);
+                return new Field\Select($fieldData, $templateHandler);
             case 'rel':
                 $fieldData->options = self::getRelOptions($fieldData);
-                return new Field\Select($fieldData);
+                return new Field\Select($fieldData, $templateHandler);
             case 'class':
                 $className = '\\'.$fieldData->class;
-                return new $className($fieldData);
+                return new $className($fieldData, $templateHandler);
             case 'attachment':
-                return new Field\Attachment($fieldData);
+                return new Field\Attachment($fieldData, $templateHandler);
             case 'editor':
             case 'wysiwyg':
-                return new Field\Editor($fieldData);
+                return new Field\Editor($fieldData, $templateHandler);
         }
     }
 
@@ -148,7 +148,7 @@ abstract class Field {
         }
     }
 
-    protected function prepareData($data, $post_id) {
+    public function prepareData($data, $post_id) {
         return $data;
     }
 

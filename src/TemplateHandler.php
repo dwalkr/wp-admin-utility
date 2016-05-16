@@ -64,9 +64,9 @@ class TemplateHandler {
         }
 
         if (file_exists("{$this->baseFolder}/{$handle}.php")) {
-            return "{$this->basePath}/{$this->viewsDir}/{$mode}/{$handle}.php";
+            return "{$this->baseFolder}/{$handle}.php";
         } else {
-            throw new \FileNotFoundException("View '$handle' not found");
+            throw new \InvalidArgumentException("View '$handle' not found");
         }
     }
 }
