@@ -66,15 +66,15 @@ class SettingsPage {
         $menuSlug = $this->getConfigData('slug');
         $callback = array($this, 'renderPage');
 
-        if (property_exists($this->configData, 'top')) {
+        if ($this->getConfigData('menu/top')) {
             //add top-level page
             $iconUrl = $this->getConfigData('menu/top/icon','');
             $position = $this->getConfigData('menu/top/position');
             add_menu_page($pageTitle, $menuTitle, $capability, $menuSlug, $callback, $iconUrl, $position);
         }
-        if (property_exists($this->configData, 'parent')) {
+        if ($this->getConfigData('menu/parent')) {
             //add submenu page(s)
-            $parentPages = is_array($this->configData->parent) ? $this->configData->parent : array($this->configData->parent);
+            $parentPages = is_array($this->getConfigData('menu/parent')) ? $this->getConfigData('menu/parent') : array($this->getConfigData('menu/parent'));
             foreach ($parentPages as $parentSlug) {
                 add_submenu_page($parentSlug, $pageTItle, $menuTitle, $capability, $menuSlug, $callback);
             }
