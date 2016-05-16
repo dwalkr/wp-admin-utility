@@ -27,7 +27,10 @@
 namespace dwalkr\WPAdminUtility;
 
 /**
- * Description of Field
+ *
+ *  todo: right now getFieldValue() returns a get_post_meta call which only applies to post types.
+ * need a way to pass contexts into fields or something. maybe send them their data. idk.
+ * but fields need to be usable in non-post type contexts. they should just display UI and possibly validate/prepare data
  *
  * @author DJ
  */

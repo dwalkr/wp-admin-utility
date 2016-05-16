@@ -29,8 +29,97 @@ namespace dwalkr\WPAdminUtility;
 /**
  * Description of SettingsPage
  *
+ *
  * @author DJ Walker <donwalker1987@gmail.com>
  */
 class SettingsPage {
-    //put your code here
+
+    private $configData;
+    private $templateHandler;
+    private $tabs = array();
+
+    public static function createFromConfig($configData, $templateHandler) {
+        return new static($configData, $templateHandler);
+    }
+
+    public function __construct($configData, $templateHandler) {
+        $this->configData = $configData;
+        $this->templateHandler = $templateHandler;
+
+        foreach ($this->configData->sections as $sectionData) {
+            $tab = property_exists($sectionData, 'tab') ? $sectionData->tab : 'default';
+
+            $this->tabs[$tab] = new FieldSection($sectionData, $this->templateHandler);
+        }
+
+        add_action('admin_menu', array($this, 'addMenuPages'));
+        add_action('admin_action_save_'.$this->configData->name, array($this, 'save'));
+
+
+
+    }
+
+    public function addMenuPages() {
+        $pageTitle = $this->getConfigData('title');
+        $menuTitle = $this->getConfigData('menu/title', $this->getConfigData('title'));
+        $capability = $this->getConfigData('menu/capability','manage_options');
+        $menuSlug = $this->getConfigData('slug');
+        $callback = array($this, 'renderPage');
+
+        if (property_exists($this->configData, 'top')) {
+            //add top-level page
+            $iconUrl = $this->getConfigData('menu/top/icon','');
+            $position = $this->getConfigData('menu/top/position');
+            add_menu_page($pageTitle, $menuTitle, $capability, $menuSlug, $callback, $iconUrl, $position);
+        }
+        if (property_exists($this->configData, 'parent')) {
+            //add submenu page(s)
+            $parentPages = is_array($this->configData->parent) ? $this->configData->parent : array($this->configData->parent);
+            foreach ($parentPages as $parentSlug) {
+                add_submenu_page($parentSlug, $pageTItle, $menuTitle, $capability, $menuSlug, $callback);
+            }
+        }
+    }
+
+    protected function getConfigData($key = false, $default = null) {
+        if (!$key) {
+            return $this->configData;
+        }
+        else {
+            $keys = explode('/', $key);
+            $returnData = $this->configData;
+            foreach ($keys as $key) {
+                if (property_exists($returnData, $key)) {
+                    $returnData = $returnData->$key;
+                } else {
+                    return $default;
+                }
+            }
+            return $returnData;
+        }
+    }
+
+    public function renderPage() {
+
+        $tabs = array_keys($this->tabs);
+
+    }
+
+    public function save() {
+        $optionData = get_option($this->configData->name);
+        $newOptionData = array();
+
+        foreach ($this->tabs as $tab=>$section) {
+            foreach ($section->fields as $field) {
+                if (method_exists($field, 'save')) {
+                    $field->save($_POST[$field->getKey()]); //for custom junk
+                } else {
+                    $data = $field->prepareData($_POST[$field->getKey()],$post_id);
+                    $newOptionData[$field->getKey()] = $data;
+                }
+            }
+        }
+
+        update_option($this->configData->name, array_merge($optionData, $newOptionData));
+    }
 }
