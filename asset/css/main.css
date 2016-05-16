@@ -34,9 +34,20 @@ THE SOFTWARE.
 .ptconfig-form-field > label {
     display: block;
 }
-.ui.button {
+/* wp-core-ui resets */
+.ptconfig-form-field .ui.button {
     float: none;
+    height: auto;
+    line-height: 1em;
+    border: none;
 }
 .field-description.ui.message {
     font-size: .8em;
 }
+/*.ui.calendar .ui.popup {
+    left: 0;
+    right: auto;
+}
+.ui.calendar .ui.popup.active {
+    display: block;
+}*/

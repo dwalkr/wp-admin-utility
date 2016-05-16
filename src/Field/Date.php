@@ -35,8 +35,8 @@ use dwalkr\WPAdminUtility\Field;
 class Date extends Field {
 
     public function init() {
-        wp_enqueue_style('wp-admin-utility/datepicker-css');
-        wp_enqueue_script('wp-admin-utility/datepicker-js');
+        wp_enqueue_style('semantic-ui-calendar-css');
+        wp_enqueue_script('semantic-ui-calendar-js');
     }
 
     public function render() {

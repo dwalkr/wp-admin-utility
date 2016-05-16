@@ -68,19 +68,22 @@ class Plugin {
     }
 
     public function registerAssets() {
-        wp_register_style('wp-admin-utility/semantic-ui-css', $this->baseUrl . '/asset/semantic-ui/semantic.min.css');
+        wp_register_style('semantic-ui-css', $this->baseUrl . '/asset/semantic-ui/semantic.min.css');
         wp_register_style('wp-admin-utility/base-css', $this->baseUrl . '/asset/css/main.css');
-        wp_register_script('wp-admin-utility/semantic-ui-js', $this->baseUrl . '/asset/semantic-ui/semantic.min.js');
-        wp_register_script('wp-admin-utility/base-js', $this->baseUrl . '/asset/js/main.js', array('jquery','wp-admin-utility/semantic-ui-js'));
-        //wp_register_script('wp-admin-utility/datepicker-js');
+        wp_register_script('semantic-ui-js', $this->baseUrl . '/asset/semantic-ui/semantic.min.js');
+        wp_register_script('wp-admin-utility/base-js', $this->baseUrl . '/asset/js/main.js', array('jquery','semantic-ui-js'));
+
+        wp_register_style('semantic-ui-calendar-css', $this->baseUrl . '/asset/semantic-ui/components/calendar.min.css', array('semantic-ui-css'));
+        wp_register_script('semantic-ui-calendar-js', $this->baseUrl . '/asset/semantic-ui/components/calendar.min.js', array('jquery','semantic-ui-js'));
+
         wp_register_script('wp-admin-utility/attachment-js', $this->baseUrl . '/asset/js/attachment.js', array('jquery'), true);
     }
 
     public function enqueueAssets() {
         wp_enqueue_style('wp-admin-utility/base-css');
-        wp_enqueue_style('wp-admin-utility/semantic-ui-css');
+        wp_enqueue_style('semantic-ui-css');
         wp_enqueue_script('wp-admin-utility/base-js');
-        wp_enqueue_script('wp-admin-utility/semantic-ui-js');
+        wp_enqueue_script('semantic-ui-js');
     }
 
     public function runPageCreator() {

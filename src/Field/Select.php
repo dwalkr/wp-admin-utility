@@ -44,4 +44,10 @@ class Select extends Field {
         return $this->getConfigData('options');
     }
 
+    private function isSelected($val) {
+        if (is_array($this->getFieldValue())) {
+            return in_array($val, $this->getFieldValue());
+        }
+        return $val == $this->getFieldValue();
+    }
 }
