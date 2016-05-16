@@ -41,6 +41,9 @@ abstract class Field {
     public function __construct($data, $templateHandler) {
         $this->configData = $data;
         $this->templateHandler = $templateHandler;
+        if (method_exists($this, 'init')) {
+            $this->init();
+        }
     }
 
     public static function create($fieldData) {
