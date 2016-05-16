@@ -33,8 +33,6 @@ namespace dwalkr\WPAdminUtility;
  */
 class MetaBox {
 
-    private static $plugin;
-
     private $configData;
     private $fields = array();
     private $templateHandler;
@@ -84,7 +82,7 @@ class MetaBox {
     public function save($post_id) {
         foreach ($this->fields as $field) {
             if (method_exists($field, 'save')) {
-                $field->save(); //for custom junk
+                $field->save($_POST[$field->getKey()]); //for custom junk
             } else {
                 $data = $field->prepareData($_POST[$field->getKey()],$post_id);
                 update_post_meta($post_id, $field->getKey(), $data);
