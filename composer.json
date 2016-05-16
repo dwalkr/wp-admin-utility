@@ -1,6 +1,7 @@
 {
   "name": "dwalkr/wp-admin-utility",
   "type": "wordpress-plugin",
+  "license": "MIT",
   "description": "Create admin pages and post types via declarative config files",
   "homepage": "https://github.com/dwalkr",
   "authors": [
