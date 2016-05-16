@@ -27,7 +27,8 @@
 
             file_frame.open();
         });
-        $('#poststuff').on('click', '.ptconfig-attachment-remove', function () {
+        $('#poststuff').on('click', '.ptconfig-attachment-remove', function (e) {
+            e.preventDefault();
             var $fieldContainer = $(this).parent('.ptconfig-form-field');
             $fieldContainer.find('input').val('');
             $fieldContainer.find('img').hide().attr('src', '');

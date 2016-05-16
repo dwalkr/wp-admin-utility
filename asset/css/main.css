@@ -47,3 +47,6 @@ THE SOFTWARE.
 .ui.container {
     margin: 0!important;
 }
+body {
+    background: #f1f1f1;
+}
