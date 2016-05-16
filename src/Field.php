@@ -57,6 +57,10 @@ abstract class Field {
                 return new Field\Select($fieldData, $templateHandler);
             case 'date':
                 return new Field\Date($fieldData, $templateHandler);
+            case 'datetime':
+                return new Field\DateTime($fieldData, $templateHandler);
+            case 'time':
+                return new Field\Time($fieldData, $templateHandler);
             case 'post':
                 $fieldData->options = self::getPostRelOptions($fieldData);
                 return new Field\Select($fieldData, $templateHandler);
