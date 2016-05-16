@@ -60,7 +60,27 @@ class Plugin {
         $this->baseUrl = $base_url;
         $this->templateHandler = new TemplateHandler($this->basePath . '/view', 'wp-admin-utility');
         $this->pageCreator = new PageCreator($this->templateHandler);
+
+        $this->registerAssets();
+        add_action('admin_enqueue_scripts', array($this,'enqueueAssets'));
+
         add_action('after_setup_theme', array($this, 'runPageCreator')); //this will catch hooks created in theme functions.php but before 'init'
+    }
+
+    public function registerAssets() {
+        wp_register_style('wp-admin-utility/semantic-ui-css', $this->baseUrl . '/asset/semantic-ui/semantic.min.css');
+        wp_register_style('wp-admin-utility/base-css', $this->baseUrl . '/asset/css/main.css');
+        wp_register_script('wp-admin-utility/semantic-ui-js', $this->baseUrl . '/asset/semantic-ui/semantic.min.js');
+        wp_register_script('wp-admin-utility/base-js', $this->baseUrl . '/asset/js/main.js', array('jquery','wp-admin-utility/semantic-ui-js'));
+        //wp_register_script('wp-admin-utility/datepicker-js');
+        wp_register_script('wp-admin-utility/attachment-js', $this->baseUrl . '/asset/js/attachment.js', array('jquery'), true);
+    }
+
+    public function enqueueAssets() {
+        wp_enqueue_style('wp-admin-utility/base-css');
+        wp_enqueue_style('wp-admin-utility/semantic-ui-css');
+        wp_enqueue_script('wp-admin-utility/base-js');
+        wp_enqueue_script('wp-admin-utility/semantic-ui-js');
     }
 
     public function runPageCreator() {

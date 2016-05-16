@@ -1,17 +1,17 @@
 <?php
 
 /**
- * Plugin Name: Post Type Configurator
+ * Plugin Name: WordPress Admin Utility
  * Plugin URI:
- * Description: Generate custom post types from config files
- * Version: 0.0.0
+ * Description: Collection of Utilities to enhance wordpress admin and rapidly create pages
+ * Version: 0.1.0
  * Author: DJ Walker
  */
 
 /*
  * The MIT License
  *
- * Copyright 2016 Donald Walker <donwalker1987@gmail.com>.
+ * Copyright 2016 DJ Walker <donwalker1987@gmail.com>.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal

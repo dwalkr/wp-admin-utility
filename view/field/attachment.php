@@ -3,9 +3,10 @@ global $post;
 $imgUrl = $this->getFieldValue();
 $showFile = (strlen($imgUrl) > 0);
 $showImage = $showFile && self::isImage(basename($imgUrl));
+$icon = self::isImage(basename($imgUrl)) ? 'file image outline' : 'file outine';
 ?>
 <input type="hidden"
-       name="<?=esc_attr($this->configData->name);?>"
+       name="<?=esc_attr($this->getKey());?>"
        value="<?=esc_attr($imgUrl);?>" />
 <div class="filepreview">
     <img src="<?=esc_attr($imgUrl);?>"<?php if (!$showImage) { echo ' style="display:none;"';} ?> />
@@ -13,9 +14,11 @@ $showImage = $showFile && self::isImage(basename($imgUrl));
         <?=esc_attr(basename($imgUrl));?>
     </a>
 </div>
-<button class="btn btn-default ptconfig-attachment-upload">
+<button class="ui primary right labeled icon button ptconfig-attachment-upload">
     Upload File
+    <i class="icon <?=$icon;?>"></i>
 </button>
-<button class="btn btn-danger ptconfig-attachment-remove"<?php if (!$showFile) { echo ' style="display:none;"';} ?>>
+<button class="ui red right labeled icon button ptconfig-attachment-remove"<?php if (!$showFile) { echo ' style="display:none;"';} ?>>
     Remove
+    <i class="icon remove"></i>
 </button>

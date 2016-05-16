@@ -21,8 +21,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-/* 
+/*
     Created on : May 15, 2016, 8:42:39 PM
     Author     : DJ Walker <donwalker1987@gmail.com>
 */
 
+.ptconfig-form-field:after {
+    display: table;
+    content: ' ';
+    clear: both;
+}
+.ptconfig-form-field > label {
+    display: block;
+}
+.ui.button {
+    float: none;
+}
