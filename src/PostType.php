@@ -49,7 +49,6 @@ class PostType {
         'map_meta_cap',
         'hierarchical',
         'supports',
-        'taxonomies',
         'has_archive',
         'permalink_epmask',
         'rewrite',
