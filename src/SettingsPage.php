@@ -54,7 +54,7 @@ class SettingsPage {
         foreach ($this->configData->sections as $sectionData) {
             $tab = property_exists($sectionData, 'tab') ? $sectionData->tab : 'default';
 
-            $this->tabs[$tab] = new FieldSection($sectionData, $this->templateHandler, $this->optionData);
+            $this->tabs[$tab][] = new FieldSection($sectionData, $this->templateHandler, $this->optionData);
         }
 
         add_action('admin_menu', array($this, 'addMenuPages'));
@@ -110,8 +110,10 @@ class SettingsPage {
 
         $tabs = array_keys($this->tabs);
 
-        foreach ($this->tabs as $tab=>$section) {
-            $section->display();
+        foreach ($this->tabs as $tab=>$sections) {
+            foreach ($sections as $section) {
+                $section->display();
+            }
         }
 
         require $this->templateHandler->getView('page-end');
@@ -122,13 +124,15 @@ class SettingsPage {
         check_admin_referer(esc_attr($this->configData->name), 'adminUtilityNonce');
         $newOptionData = array();
 
-        foreach ($this->tabs as $tab=>$section) {
-            foreach ($section->fields as $field) {
-                if (method_exists($field, 'save')) {
-                    $field->save($_POST[$field->getKey()]); //for custom junk
-                } else {
-                    $data = $field->prepareData($_POST[$field->getKey()],$post_id);
-                    $newOptionData[$field->getKey()] = $data;
+        foreach ($this->tabs as $tab=>$sections) {
+            foreach ($sections as $section) {
+                foreach ($section->fields as $field) {
+                    if (method_exists($field, 'save')) {
+                        $field->save($_POST[$field->getKey()]); //for custom junk
+                    } else {
+                        $data = $field->prepareData($_POST[$field->getKey()],$post_id);
+                        $newOptionData[$field->getKey()] = $data;
+                    }
                 }
             }
         }
