@@ -48,7 +48,8 @@ class Attachment extends Field {
             'gif',
             'svg'
         );
-        $extension = end(explode('.',$filename));
+        $filenameparts = explode('.',$filename);
+        $extension = end($filenameparts);
         return in_array(strtolower($extension), $image_extensions);
     }
 
