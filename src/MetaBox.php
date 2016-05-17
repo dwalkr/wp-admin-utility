@@ -82,11 +82,11 @@ class MetaBox {
     }
 
     public function display() {
-        require $this->templateHandler->getView('metabox-start');
+        require $this->templateHandler->getView('metabox/start');
         foreach ($this->fields as $field) {
             $field->render();
         }
-        require $this->templateHandler->getView('metabox-end');
+        require $this->templateHandler->getView('metabox/end');
     }
 
     public function save($post_id) {

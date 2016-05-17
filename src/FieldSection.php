@@ -58,10 +58,10 @@ class FieldSection {
 
 
     public function display() {
-        require $this->templateHandler->getView('fieldsection-start');
+        require $this->templateHandler->getView('fieldsection/start');
         foreach ($this->fields as $field) {
             $field->render();
         }
-        require $this->templateHandler->getView('fieldsection-end');
+        require $this->templateHandler->getView('fieldsection/end');
     }
 }

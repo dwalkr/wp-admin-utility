@@ -106,24 +106,24 @@ class SettingsPage {
 
     public function renderPage() {
 
-        require $this->templateHandler->getView('page-start');
+        require $this->templateHandler->getView('page/start');
 
         $tabs = array_keys($this->tabs);
 
         if (count($tabs) > 1) {
-            require $this->templateHandler->getView('tabs-nav');
+            require $this->templateHandler->getView('tab/nav');
         }
         $i=0;
         foreach ($this->tabs as $tab=>$sections) {
-            require $this->templateHandler->getView('tab-start');
+            require $this->templateHandler->getView('tab/start');
             foreach ($sections as $section) {
                 $section->display();
             }
-            require $this->templateHandler->getView('tab-end');
+            require $this->templateHandler->getView('tab/end');
             $i++;
         }
 
-        require $this->templateHandler->getView('page-end');
+        require $this->templateHandler->getView('page/end');
 
     }
 
