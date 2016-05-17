@@ -48,7 +48,7 @@ THE SOFTWARE.
     margin: 0!important;
 }
 body {
-    background: #f1f1f1;
+    background: #f1f1f1!important;
 }
 .filepreview img {
     max-width: 100%;
@@ -63,4 +63,7 @@ body {
 }
 .ui.tab {
     margin-bottom: 1em;
+}
+.adminTabs.ui.compact.menu {
+    margin: 1em 0;
 }
