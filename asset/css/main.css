@@ -35,7 +35,7 @@ THE SOFTWARE.
     display: block;
 }
 /* wp-core-ui resets */
-.ptconfig-form-field .ui.button {
+.ui.button {
     float: none;
     height: auto;
     line-height: 1em;
@@ -49,4 +49,18 @@ THE SOFTWARE.
 }
 body {
     background: #f1f1f1;
+}
+.filepreview img {
+    max-width: 100%;
+}
+.ui.menu {
+    padding-top: 0;
+}
+.ui.tab:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.ui.tab {
+    margin-bottom: 1em;
 }

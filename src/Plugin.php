@@ -81,6 +81,7 @@ class Plugin {
 
     public function enqueueAssets() {
         $this->registerAssets();
+        wp_enqueue_media();
         wp_enqueue_style('wp-admin-utility/base-css');
         wp_enqueue_style('semantic-ui-css');
         wp_enqueue_script('wp-admin-utility/base-js');

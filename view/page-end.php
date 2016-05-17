@@ -1,4 +1,4 @@
-            <button class="large ui primary button" type="submit">Submit</button>
+            <button class="large ui primary button" type="submit">Save</button>
         </form>
     </div>
 </div>
