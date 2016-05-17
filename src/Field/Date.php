@@ -34,11 +34,6 @@ use dwalkr\WPAdminUtility\Field;
  */
 class Date extends Field {
 
-    public function init() {
-        wp_enqueue_style('semantic-ui-calendar-css');
-        wp_enqueue_script('semantic-ui-calendar-js');
-    }
-
     public function render() {
         require $this->templateHandler->getView('field/wrapper-start');
         require $this->templateHandler->getView('field/date');

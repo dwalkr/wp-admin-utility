@@ -34,10 +34,6 @@ use dwalkr\WPAdminUtility\Field;
  */
 class Attachment extends Field {
 
-    public function init() {
-        wp_enqueue_script('wp-admin-utility/attachment-js');
-    }
-
     public function render() {
         require $this->templateHandler->getView('field/wrapper-start');
         require $this->templateHandler->getView('field/attachment');

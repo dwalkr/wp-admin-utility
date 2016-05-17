@@ -61,7 +61,7 @@ class Plugin {
         $this->templateHandler = new TemplateHandler($this->basePath . '/view', 'wp-admin-utility');
         $this->pageCreator = new PageCreator($this->templateHandler);
 
-        $this->registerAssets();
+
         add_action('admin_enqueue_scripts', array($this,'enqueueAssets'));
 
         add_action('after_setup_theme', array($this, 'runPageCreator')); //this will catch hooks created in theme functions.php but before 'init'
@@ -80,10 +80,14 @@ class Plugin {
     }
 
     public function enqueueAssets() {
+        $this->registerAssets();
         wp_enqueue_style('wp-admin-utility/base-css');
         wp_enqueue_style('semantic-ui-css');
         wp_enqueue_script('wp-admin-utility/base-js');
         wp_enqueue_script('semantic-ui-js');
+        wp_enqueue_script('wp-admin-utility/attachment-js');
+        wp_enqueue_style('semantic-ui-calendar-css');
+        wp_enqueue_script('semantic-ui-calendar-js');
     }
 
     public function runPageCreator() {
