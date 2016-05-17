@@ -65,6 +65,11 @@ class PostType {
     private $metaboxes = array();
 
     public static function createFromConfig($configData, $templateHandler) {
+        if (property_exists($configData, 'taxonomies')) {
+            foreach ($configData->taxonomies as $taxonomyData) {
+                PostTaxonomy::createFromConfig($configData->name, $taxonomyData, $templateHandler);
+            }
+        }
         return new static($configData, $templateHandler);
     }
 
