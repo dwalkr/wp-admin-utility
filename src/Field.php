@@ -93,10 +93,10 @@ abstract class Field {
         $where = '';
         $numJoins = 0;
         foreach ($fieldData->filter as $filter) {
-            if (!$filter->compare) {
+            if (!property_exists($filter,'compare')) {
                 $filter->compare = '=';
             }
-            if ($filter->meta_key) {
+            if (property_exists($filter, 'meta_key')) {
                 $numJoins++;
                 $join = 'pm'.$numJoins;
                 $from .= " INNER JOIN $wpdb->postmeta $join ON (p.ID = $join.post_id AND $join.meta_key = '".esc_sql($filter->meta_key) . "')";

@@ -83,6 +83,12 @@ class PostType {
 
         register_post_type($this->configData->name, $args);
 
+    }
+
+    /**
+     * take out of constructor so it doesn't happen every page load
+     */
+    private function setupMetaBoxes() {
         if (property_exists($this->configData, 'metaboxes')) {
             foreach ($this->configData->metaboxes as $boxData) {
                 $this->metaboxes[] = new MetaBox($boxData, $this->templateHandler);
@@ -91,6 +97,7 @@ class PostType {
     }
 
     public function addMetaBoxes() {
+        $this->setupMetaBoxes();
         foreach ($this->metaboxes as $i=>$metabox) {
             add_meta_box($this->configData->name.'_'.$i,
                         $metabox->getTitle(),
@@ -102,6 +109,7 @@ class PostType {
     }
 
     public function save($post_id) {
+        $this->setupMetaBoxes();
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
             return $post_id;
         }
