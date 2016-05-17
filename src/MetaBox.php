@@ -90,11 +90,15 @@ class MetaBox {
     }
 
     public function save($post_id) {
+
+        if (!$post_id) return;
+
         foreach ($this->fields as $field) {
+            $data = array_key_exists($field->getKey(), $_POST) ? $_POST[$field->getKey()] : '';
             if (method_exists($field, 'save')) {
-                $field->save($_POST[$field->getKey()]); //for custom junk
+                $field->save($data); //for custom junk
             } else {
-                $data = $field->prepareData($_POST[$field->getKey()],$post_id);
+                $data = $field->prepareData($data, $post_id);
                 update_post_meta($post_id, $field->getKey(), $data);
             }
         }
