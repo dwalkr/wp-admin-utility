@@ -44,6 +44,9 @@ class MetaBox {
         foreach ($this->configData->fields as $fieldData) {
             $post_id = $_GET['post'];
             $data = get_post_meta($post_id, $fieldData->name, true);
+            if ($data === false && property_exists($fieldData, 'default')) {
+                $data = $fieldData->default;
+            }
             $this->fields[] = Field::create($fieldData, $this->templateHandler, $data);
         }
     }

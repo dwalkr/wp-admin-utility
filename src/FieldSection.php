@@ -42,7 +42,13 @@ class FieldSection {
         $this->templateHandler = $templateHandler;
 
         foreach ($this->configData->fields as $fieldData) {
-            $this->fields[] = Field::create($fieldData, $this->templateHandler, $optionData[$fieldData->name]);
+            $data = null;
+            if (array_key_exists($fieldData->name, $optionData)) {
+                $data = $optionData[$fieldData->name];
+            } else if (property_exists($fieldData, 'default')) {
+                $data = $fieldData->default;
+            }
+            $this->fields[] = Field::create($fieldData, $this->templateHandler, $data);
         }
     }
 
