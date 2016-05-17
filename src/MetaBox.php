@@ -42,8 +42,13 @@ class MetaBox {
         $this->templateHandler = $templateHandler;
 
         foreach ($this->configData->fields as $fieldData) {
-            $post_id = $_GET['post'];
-            $data = get_post_meta($post_id, $fieldData->name, true);
+            if (array_key_exists('post',$_GET)) {
+                $post_id = $_GET['post'];
+                $data = get_post_meta($post_id, $fieldData->name, true);
+            } else {
+                $data = null;
+            }
+
             if ($data === false && property_exists($fieldData, 'default')) {
                 $data = $fieldData->default;
             }
