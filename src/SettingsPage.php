@@ -53,8 +53,8 @@ class SettingsPage {
 
         foreach ($this->configData->sections as $sectionData) {
             $tab = property_exists($sectionData, 'tab') ? $sectionData->tab : 'default';
-
-            $this->tabs[$tab][] = new FieldSection($sectionData, $this->templateHandler, $this->optionData);
+            $tabname = sanitize_title_with_dashes($tab);
+            $this->tabs[$tabname][] = new FieldSection($sectionData, $this->templateHandler, $this->optionData);
         }
 
         add_action('admin_menu', array($this, 'addMenuPages'));
