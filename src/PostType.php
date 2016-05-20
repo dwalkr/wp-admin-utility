@@ -73,6 +73,9 @@ class PostType {
     }
 
     public function __construct($configData, $templateHandler) {
+        if (property_exists($configData, 'active') && $configData->active !== true) {
+            return;
+        }
         $this->configData = $configData;
         $this->templateHandler = $templateHandler;
 
