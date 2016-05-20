@@ -18,10 +18,7 @@ $eleId = sanitize_title_with_dashes($this->getKey());
         $(document).ready(function(){
            var $calendar = $('#uicalendar_<?=esc_attr($eleId);?>');
            $calendar.calendar({
-               type: 'date',
-               selector: {
-                   activator: $calendar.find('.ui.input')
-               }
+               type: 'date'
             });
         });
     })(jQuery);
