@@ -52,6 +52,11 @@ abstract class Field {
     }
 
     public static function create($fieldConfig, $templateHandler, $data) {
+
+        if (is_array($fieldConfig)) {
+            $fieldConfig = json_decode(json_encode($fieldConfig));
+        }
+
         switch ($fieldConfig->type) {
             case 'text':
             default:
