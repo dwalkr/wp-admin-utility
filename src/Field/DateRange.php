@@ -50,8 +50,4 @@ class DateRange extends Field {
         return is_array($data) ? $data['end'] : '';
     }
 
-    public function prepareData($data) {
-
-    }
-
 }
