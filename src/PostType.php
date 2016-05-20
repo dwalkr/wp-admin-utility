@@ -79,6 +79,7 @@ class PostType {
         add_action('init', array($this, 'register'));
         add_action('save_post', array($this, 'save'));
 
+
     }
 
     public function register() {
@@ -86,7 +87,7 @@ class PostType {
         $args['register_meta_box_cb'] = array($this, 'addMetaBoxes');
 
         register_post_type($this->configData->name, $args);
-
+        $this->setupMetaBoxes();
     }
 
     /**
@@ -101,19 +102,18 @@ class PostType {
     }
 
     public function addMetaBoxes() {
-        $this->setupMetaBoxes();
+
         foreach ($this->metaboxes as $i=>$metabox) {
             add_meta_box($this->configData->name.'_'.$i,
                         $metabox->getTitle(),
                         array($metabox, 'display'),
-                        $metabox->getScreen(),
+                        $this->configData->name,
                         $metabox->getContext(),
                         $metabox->getPriority());
         }
     }
 
     public function save($post_id) {
-        $this->setupMetaBoxes();
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
             return $post_id;
         }
