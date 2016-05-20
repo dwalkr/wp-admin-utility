@@ -86,10 +86,14 @@ class PostType {
     }
 
     public function register() {
-        $args = self::generatePostArgs($this->configData);
-        $args['register_meta_box_cb'] = array($this, 'addMetaBoxes');
+        if (!post_type_exists($this->configData->name)) {
+            $args = self::generatePostArgs($this->configData);
+            $args['register_meta_box_cb'] = array($this, 'addMetaBoxes');
 
-        register_post_type($this->configData->name, $args);
+            register_post_type($this->configData->name, $args);
+        } else {
+            add_action('add_meta_boxes_'.$this->configData->name, array($this, 'addMetaBoxes'));
+        }
         $this->setupMetaBoxes();
     }
 
