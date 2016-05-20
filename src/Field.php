@@ -162,7 +162,7 @@ abstract class Field {
         }
     }
 
-    public function prepareData($data, $post_id) {
+    public function prepareData($data) {
         return $data;
     }
 

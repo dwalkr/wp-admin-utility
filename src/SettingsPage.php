@@ -137,7 +137,7 @@ class SettingsPage {
                     if (method_exists($field, 'save')) {
                         $field->save($_POST[$field->getKey()]); //for custom junk
                     } else {
-                        $data = $field->prepareData($_POST[$field->getKey()],$post_id);
+                        $data = $field->prepareData($_POST[$field->getKey()]);
                         $newOptionData[$field->getKey()] = $data;
                     }
                 }
