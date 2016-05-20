@@ -107,7 +107,7 @@ class PostType {
             add_meta_box($this->configData->name.'_'.$i,
                         $metabox->getTitle(),
                         array($metabox, 'display'),
-                        $this->configData->name,
+                        $metabox->getScreen(),
                         $metabox->getContext(),
                         $metabox->getPriority());
         }
