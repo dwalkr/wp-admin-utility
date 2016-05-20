@@ -67,6 +67,8 @@ abstract class Field {
                 return new Field\Select($fieldConfig, $templateHandler, $data);
             case 'date':
                 return new Field\Date($fieldConfig, $templateHandler, $data);
+            case 'daterange':
+                return new Field\DateRange($fieldConfig, $templateHandler, $data);
             case 'datetime':
                 return new Field\DateTime($fieldConfig, $templateHandler, $data);
             case 'time':
