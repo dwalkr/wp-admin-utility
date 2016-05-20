@@ -39,7 +39,8 @@
     function processFileSelection(attachment) {
         console.log(attachment);
         var $fieldContainer = $currentAttachmentField.parent('.ptconfig-form-field');
-        $fieldContainer.find('input').val(attachment.url);
+        $fieldContainer.find('input:first').val(attachment.url);
+        $fieldContainer.find('input[name$="_id"]').val(attachment.id);
         if (attachment.type === 'image') {
             $fieldContainer.find('img').attr('src', attachment.url).show();
         }

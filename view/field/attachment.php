@@ -1,6 +1,6 @@
 <?php
 global $post;
-$imgUrl = $this->getFieldValue();
+$imgUrl = $this->getFileUrl();
 $showFile = (strlen($imgUrl) > 0);
 $showImage = $showFile && self::isImage(basename($imgUrl));
 $icon = self::isImage(basename($imgUrl)) ? 'file image outline' : 'file outine';
@@ -8,6 +8,9 @@ $icon = self::isImage(basename($imgUrl)) ? 'file image outline' : 'file outine';
 <input type="hidden"
        name="<?=esc_attr($this->getKey());?>"
        value="<?=esc_attr($imgUrl);?>" />
+<input type="hidden"
+       name="<?=esc_attr($this->getKey());?>_id"
+       value="<?=esc_attr($this->getAttachmentId());?>" />
 <div class="filepreview">
     <img src="<?=esc_attr($imgUrl);?>"<?php if (!$showImage) { echo ' style="display:none;"';} ?> />
     <a class="filename" href="<?=esc_attr($imgUrl);?>" target="_blank"<?php if (!$showFile) { echo ' style="display:none;"';} ?>>

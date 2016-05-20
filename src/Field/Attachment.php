@@ -53,4 +53,30 @@ class Attachment extends Field {
         return in_array(strtolower($extension), $image_extensions);
     }
 
+    public function getAttachmentId() {
+        $data = $this->getFieldValue();
+        if (is_array($data)) {
+            return $data['id'];
+        }
+        return null;
+    }
+
+    public function getFileUrl() {
+        $data = $this->getFieldValue();
+        if (is_array($data)) {
+            return $data['url'];
+        }
+        return $data;
+    }
+
+    public function prepareData($data) {
+        if ($this->getConfigData('include_id', false)) {
+            return array(
+                'url' => $data,
+                'id' => $_POST[$this->getKey().'_id'],
+            );
+        }
+        return $data;
+    }
+
 }
