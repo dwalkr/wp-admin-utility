@@ -143,6 +143,10 @@ class PostType {
             }
         }
 
+        if (property_exists($data, 'core_taxonomies')) {
+            $args['taxonomies'] = $data->core_taxonomies;
+        }
+
         return $args;
     }
 
