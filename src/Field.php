@@ -96,8 +96,8 @@ abstract class Field {
      */
     public static function getPostRelOptions($fieldData) {
         global $wpdb;
-        $from = "SELECT p.ID,p.post_title FROM $wpdb->posts p";
-        $where = '';
+        $from = "SELECT p.ID,p.post_title,p.post_status FROM $wpdb->posts p";
+        $where = "p.post_status IN ('publish','draft')";
         $numJoins = 0;
         foreach ($fieldData->filter as $filter) {
             if (!property_exists($filter,'compare')) {
@@ -125,6 +125,9 @@ abstract class Field {
             $option = new \stdClass();
             $option->value = $result->ID;
             $option->label = $result->post_title;
+            if ($result->post_status === 'draft') {
+                $option->label .= ' [DRAFT]';
+            }
             $return[] = $option;
         }
         return $return;

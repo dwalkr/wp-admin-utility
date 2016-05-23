@@ -41,7 +41,16 @@ class Select extends Field {
     }
 
     public function getOptions() {
-        return $this->getConfigData('options');
+        $options = $this->getConfigData('options');
+        
+        if ($this->getConfigData('show_null_option', false)) {
+            $nullOption = new \stdClass();
+            $nullOption->value = -1;
+            $nullOption->label = '-- Select a '.$this->getConfigData('label').' --';
+            array_unshift($options, $nullOption);
+        }
+
+        return $options;
     }
 
     private function isSelected($val) {
