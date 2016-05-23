@@ -111,7 +111,7 @@ class PostType {
     public function addMetaBoxes() {
 
         foreach ($this->metaboxes as $i=>$metabox) {
-            add_meta_box($this->configData->name.'_'.$i,
+            add_meta_box($this->configData->name.'_'.sanitize_title_with_dashes($metabox->getTitle()),
                         $metabox->getTitle(),
                         array($metabox, 'display'),
                         $metabox->getScreen(),
