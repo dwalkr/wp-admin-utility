@@ -99,7 +99,7 @@ abstract class Field {
         $from = "SELECT p.ID,p.post_title,p.post_status FROM $wpdb->posts p";
         $where = "p.post_status IN ('publish','draft')";
         $numJoins = 0;
-        foreach ($fieldData->filter as $filter) {
+        foreach ($fieldData->filters as $filter) {
             if (!property_exists($filter,'compare')) {
                 $filter->compare = '=';
             }
