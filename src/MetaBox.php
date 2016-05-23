@@ -46,7 +46,7 @@ class MetaBox {
                 $post_id = $_GET['post'];
                 $data = get_post_meta($post_id, $fieldData->name, true);
             } else {
-                $data = false;
+                $data = null;
             }
 
             if ($data === false && property_exists($fieldData, 'default')) {
