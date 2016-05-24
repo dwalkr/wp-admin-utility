@@ -67,3 +67,6 @@ body {
 .adminTabs.ui.compact.menu {
     margin: 1em 0;
 }
+.ui.dimmer.modals {
+    z-index: 9999!important;
+}
