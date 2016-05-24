@@ -77,6 +77,7 @@ class Plugin {
         //wp_register_script('semantic-ui-calendar-js', $this->baseUrl . '/asset/semantic-ui/components/calendar.js', array('jquery','semantic-ui-js'));
 
         wp_register_script('wp-admin-utility/attachment-js', $this->baseUrl . '/asset/js/attachment.js', array('jquery'), true);
+        wp_register_script('wp-admin-utility/repeater-js', $this->baseUrl . '/asset/js/repeater.js', array('jquery'), true);
     }
 
     public function enqueueAssets() {
@@ -89,6 +90,7 @@ class Plugin {
         wp_enqueue_script('wp-admin-utility/attachment-js');
         wp_enqueue_style('semantic-ui-calendar-css');
         wp_enqueue_script('semantic-ui-calendar-js');
+        wp_enqueue_script('wp-admin-utility/repeater-js');
     }
 
     public function runPageCreator() {

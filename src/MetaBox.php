@@ -33,9 +33,9 @@ namespace dwalkr\WPAdminUtility;
  */
 class MetaBox {
 
-    private $configData;
-    private $fields = array();
-    private $templateHandler;
+    protected $configData;
+    protected $fields = array();
+    protected $templateHandler;
 
     public function __construct($data, $templateHandler) {
         $this->configData = $data;

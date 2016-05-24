@@ -103,7 +103,12 @@ class PostType {
     private function setupMetaBoxes() {
         if (property_exists($this->configData, 'metaboxes')) {
             foreach ($this->configData->metaboxes as $boxData) {
-                $this->metaboxes[] = new MetaBox($boxData, $this->templateHandler);
+                if (property_exists($boxData, 'repeating') && $boxData->repeating == true) {
+                    $ajaxAction = 'save_repeater_'.$this->configData->name.'_'.$boxData->name;
+                    $this->metaboxes[] = new RepeatingMetaBox($boxData, $this->templateHandler, $ajaxAction);
+                } else {
+                    $this->metaboxes[] = new MetaBox($boxData, $this->templateHandler);
+                }
             }
         }
     }

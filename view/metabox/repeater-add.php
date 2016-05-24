@@ -1,0 +1,1 @@
+<button type="button" class="ui right icon button primary add-repeater-item" id="<?=esc_attr($this->configData->name);?>_add"><i class="icon plus"></i> Add <?=esc_html($this->configData->title);?></button>
