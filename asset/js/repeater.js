@@ -54,8 +54,10 @@
 
 
     $(document).ready(function(){
-        $.each(d3AdminUtil_repeaterFields, function(i, val){
-           return new repeaterField(val);
-        });
+        if (typeof d3AdminUtil_repeaterFields != 'undefined' && Array.isArray(d3AdminUtil_repeaterFields)) {
+            $.each(d3AdminUtil_repeaterFields, function(i, val){
+               return new repeaterField(val);
+            });
+        }
     });
 })(jQuery);
