@@ -52,6 +52,21 @@ class Select extends Field {
 
         return $options;
     }
+    
+    public function prepareData($data) {
+        if ($this->getConfigData('multiple') == true && $this->getConfigData('multi_save_type', '') === 'csv') {
+            //save as comma-separated values instead of serialized array
+            return implode(',', $data);
+        }
+        return $data;
+    }
+    
+    public function getFieldValue() {
+        if ($this->getConfigData('multiple') == true && $this->getConfigData('multi_save_type', '') === 'csv') {
+            return explode(',',parent::getFieldValue());
+        }
+    }
+        
 
     private function isSelected($val) {
         if (is_array($this->getFieldValue())) {
