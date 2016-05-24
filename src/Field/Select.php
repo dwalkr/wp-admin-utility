@@ -65,6 +65,7 @@ class Select extends Field {
         if ($this->getConfigData('multiple') == true && $this->getConfigData('multi_save_type', '') === 'csv') {
             return explode(',',parent::getFieldValue());
         }
+        return parent::getFieldValue();
     }
         
 
