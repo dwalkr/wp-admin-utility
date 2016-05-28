@@ -99,23 +99,25 @@ abstract class Field {
         $from = "SELECT p.ID,p.post_title,p.post_status FROM $wpdb->posts p";
         $where = "p.post_status IN ('publish','draft')";
         $numJoins = 0;
-        foreach ($fieldData->filters as $filter) {
-            if (!property_exists($filter,'compare')) {
-                $filter->compare = '=';
-            }
-            if (property_exists($filter, 'meta_key')) {
-                $numJoins++;
-                $join = 'pm'.$numJoins;
-                $from .= " INNER JOIN $wpdb->postmeta $join ON (p.ID = $join.post_id AND $join.meta_key = '".esc_sql($filter->meta_key) . "')";
-                if ($where) {
-                    $where .= ' AND ';
+        if (property_exists($fieldData, 'filters') && is_array($fieldData->filters)) {
+            foreach ($fieldData->filters as $filter) {
+                if (!property_exists($filter,'compare')) {
+                    $filter->compare = '=';
                 }
-                $where .= "$join.meta_key " . esc_sql($filter->compare) . " '" . esc_sql($filter->value)."'";
-            } else {
-                if ($where) {
-                    $where .= ' AND ';
+                if (property_exists($filter, 'meta_key')) {
+                    $numJoins++;
+                    $join = 'pm'.$numJoins;
+                    $from .= " INNER JOIN $wpdb->postmeta $join ON (p.ID = $join.post_id AND $join.meta_key = '".esc_sql($filter->meta_key) . "')";
+                    if ($where) {
+                        $where .= ' AND ';
+                    }
+                    $where .= "$join.meta_key " . esc_sql($filter->compare) . " '" . esc_sql($filter->value)."'";
+                } else {
+                    if ($where) {
+                        $where .= ' AND ';
+                    }
+                    $where .= esc_sql($filter->column) . ' ' . esc_sql($filter->compare) . " '" . esc_sql($filter->value) . "'";
                 }
-                $where .= esc_sql($filter->column) . ' ' . esc_sql($filter->compare) . " '" . esc_sql($filter->value) . "'";
             }
         }
 
@@ -142,7 +144,9 @@ abstract class Field {
     }
 
     public function getFieldValue() {
-        return $this->data;
+        if (isset($this->data)) {
+            return $this->data;
+        }
     }
 
     public function getKey() {

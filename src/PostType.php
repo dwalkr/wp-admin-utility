@@ -140,10 +140,13 @@ class PostType {
     private static function generatePostArgs($data) {
         $args = array();
 
-        if (!$data->labels->singular) {
+        if (!property_exists($data, 'labels')) {
+            $data->labels = new \stdClass();
+        }
+        if (!property_exists($data->labels,'singular') || !$data->labels->singular) {
             $data->labels->singular = $data->name;
         }
-        if (!$data->labels->plural) {
+        if (!property_exists($data->labels,'plural') || !$data->labels->plural) {
             $data->labels->plural = $data->labels->singular . 's';
         }
 
