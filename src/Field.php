@@ -87,6 +87,8 @@ abstract class Field {
             case 'editor':
             case 'wysiwyg':
                 return new Field\Editor($fieldConfig, $templateHandler, $data);
+            case 'checkbox':
+                return new Field\Checkbox($fieldConfig, $templateHandler, $data);
         }
     }
 
