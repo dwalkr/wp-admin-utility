@@ -51,9 +51,8 @@ class PostTaxonomy {
     public function register() {
         $args = self::generatePostArgs($this->configData);
         
-        $taxonomyName = str_replace(' ', '_', strtolower($this->configData->name));
-        register_taxonomy($taxonomyName, $this->objectType, $args);
-        register_taxonomy_for_object_type($taxonomyName, $this->objectType);
+        register_taxonomy($this->configData->name, $this->objectType, $args);
+        register_taxonomy_for_object_type($this->configData->name, $this->objectType);
     }
 
     private static function generatePostArgs($data) {
