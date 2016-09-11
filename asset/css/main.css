@@ -25,7 +25,9 @@ THE SOFTWARE.
     Created on : May 15, 2016, 8:42:39 PM
     Author     : DJ Walker <donwalker1987@gmail.com>
 */
-
+body.nav-menus-php {
+    overflow: visible;
+}
 .ptconfig-form-field:after {
     display: table;
     content: ' ';
