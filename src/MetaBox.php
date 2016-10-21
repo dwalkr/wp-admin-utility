@@ -93,7 +93,10 @@ class MetaBox {
 
         if (!$post_id) return;
         foreach ($this->fields as $field) {
-            $data = array_key_exists($field->getKey(), $_POST) ? $_POST[$field->getKey()] : '';
+            if(!array_key_exists($field->getKey(), $_POST)) {
+                continue;
+            }
+            $data = $_POST[$field->getKey()];
             if (method_exists($field, 'save')) {
                 $field->save($data); //for custom junk
             } else {
