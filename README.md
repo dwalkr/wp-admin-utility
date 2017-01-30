@@ -3,7 +3,7 @@
 **wp-admin-utility** installs as a plugin and provides an API for quickly setting up custom post types and options pages. Whereas other post type builders provide an admin interface for creating post types, this utility reads static configuration files to create post types via a declarative syntax.
 
 ## Installation
-r 
+
 ```
 composer require dwalkr/wp-admin-utility
 ```
