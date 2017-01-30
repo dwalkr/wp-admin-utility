@@ -1,4 +1,4 @@
-# This file will create a new post type called 'example'
+# This configuration will create a new post type called 'example'
 
 api_version: 0.1
 active: true
