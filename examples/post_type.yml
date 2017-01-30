@@ -1,4 +1,4 @@
-# This configuration will create a new post type called 'example'
+# This configuration will create a new post type called 'employee'
 
 api_version: 0.1
 active: true
