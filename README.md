@@ -32,8 +32,8 @@ Configuration files can be in **yaml**, **json**, or **php** format. When passin
 Instead of having PageCreator parse a configuration file, you can pass an array or PHP object containing the configuration instead of the path to a file. Use the FROM_ARRAY and FROM_OBJECT constants to tell PageCreator how to process the first method parameter.
 
 ```php
-
 <?php
+
 $config = [
   'active' => true,
   'name' => 'specials',
@@ -46,7 +46,12 @@ $pageCreator->addPostType($config, \dwalkr\WPAdminUtility::FROM_ARRAY);
 
 ## Configuration API
 
+Almost all options that can be passed into the [register_post_type](https://codex.wordpress.org/Function_Reference/register_post_type) function can be added to the top-level config for a post type.
+
+To understand how to set up meta boxes with custom fields, see the [post type example](...).
+
+To understand how to set up settings pages, see the [settings page example](...).
+
 ### Adding Custom Meta Boxes to Existing Post Types
 
-
-
+To add a custom fields and meta boxes to an existing post type, just add a configuration file with the `name` property matching the existing post type. If the post type has already been registered, the rest of the top-level configuration is ignored and only `metaboxes` are added.
