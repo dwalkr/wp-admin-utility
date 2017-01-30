@@ -1,0 +1,32 @@
+# This configuration will create a new settings page to edit your custom options
+
+# Option name (accessed via get_option())
+name: mycustomsettings
+
+title: Custom Settings for My Plugin
+
+# Slug for options page
+slug: mycustomsettings
+
+# Defines how this page can be accessed in admin menu
+menu:
+    title: My Custom Settings
+    capability: manage_options  # Required user capability to access page
+    top:
+        # Adds a top-level menu item
+        icon: dashicons-chart-pie
+        position: 5
+    parent: edit.php?post_type=my_post_type   # Adds a sub-item on the specified parent page
+
+# Defines sections of fields
+sections:
+    - title: First fieldset
+      # Specifying "tab" will add tabs to the page
+      # Specifying identical "tab" entry for another
+      # will group that section under the same tab.
+      tab: Main settings
+      fields:
+        # See post type example for all fields
+        - name: example_field
+          label: Example
+          type: text
