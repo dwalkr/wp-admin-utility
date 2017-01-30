@@ -1,0 +1,192 @@
+# This file will create a new post type called 'example'
+
+api_version: 0.1
+active: true
+
+# this will be the name used to refer to the post type (first param passed into register_post_type)
+name: employee
+
+public: true
+
+# The myriad add/edit labels will be generated from these two values
+labels:  
+  singular: Event
+  plural: Events
+
+supports:
+  - title
+  - editor
+  - excerpt
+
+# This can be used to register new taxonomies and assign them to this post type
+taxonomies:
+    - name: events_cat
+      labels:
+          singular: category
+          plural: categories
+      public: true
+
+# basic
+
+#text 
+#textarea 
+#select 
+#checkbox 
+
+# wordpress UI
+
+# editor/wysiwyg
+# attachment 
+
+# components
+# date 
+# daterange 
+# datetime 
+# time 
+
+# post rel
+
+# custom  
+
+# Define one or more meta boxes here to display your custom fields
+# Several 'add_meta_box' options are supported here including context and priority
+metaboxes:
+  - title: Employee Details
+
+    # all fields will have a name, type, and label.
+    # additional configuration options are particular to the given field.
+    fields:
+
+      #
+      #     BASIC ELEMENTS
+      #
+
+      # Single-line text input
+      - name: first_name
+        type: text
+        label: First name
+
+      # Multi-line text input
+      # For WYSIWYG capability, see "editor" field type below
+      - name: description
+        type: textarea
+        label: Plaintext Description
+
+      # Select dropdown
+      - name: title
+        type: select
+        label: Title
+        options:
+            - Mr.
+            - Mrs.
+            - Ms.
+            - Dr.
+        searchable: true    # Adds a search bar to filter options
+
+      - name: pets
+        type: select
+        label: Pets 
+        show_null_option: true  # Add a null option to the top of the dropdown
+        options:
+            # Passing an array of label/value maps instead of a simple array of strings
+            # allows you to specify different display and save values
+            # both this and the previous simple option syntax are valid for dropdowns
+            - label: Dog
+              value: 1
+            - label: Cat
+              value: 2
+            - label: Fish
+              value: 3
+        multiple: true          # Enable multiselect
+        multi_save_type: csv    # Setting to 'csv' will save multiple values as a comma-separated string instead of serializing
+
+      # Checkbox field saves a '1' value when checked, null otherwise
+      - name: active
+        type: checkbox
+        label: Active
+
+
+      #
+      #     WORDPRESS UI ELEMENTS
+      #
+
+      # WYSIWYG editor
+      - name: bio
+        type: editor
+        label: Biography
+
+      # Attachment (opens media library)
+      - name: profile_photo
+        type: attachment
+        label: Profile Photo
+        # Use include_id to save as an associative array containing 'url' and 'id' keys, 
+        # instead of just URL. Useful for retrieving custom image sizes.
+        include_id: true
+
+
+      #
+      #     DATE/TIME ELEMENTS
+      #
+
+      # Single date
+      - name: birth_date
+        type: date
+        label: Birth Date
+        format: yyyy-mm-dd  # Optional. Specify date format.
+
+      # Time picker with no date
+      - name: start_time
+        type: time
+        label: Work Start Time
+        format: H:i:s       # Optional. Specify time format.
+
+      # Date+time picker
+      - name: staff_meeting
+        type: datetime
+        label: Next Staff Meeting
+        # Can also pass in 'format' like in other date/time fields
+
+      # Date Range
+      - name: vacation_time
+        type: daterange
+        label: Vacation Time
+        text_between: To    # Optional. Add some text between the two date fields.
+        # 'format' also applies here.
+
+
+      #
+      #     ADVANCED ELEMENTS
+      #
+
+      # Dropdown to select an item from another custom post type (or this one)
+      # Saves the ID of the post selected.
+      # Any configuration options that apply to simple select dropdowns also apply here.
+      # (adding "searchable" is highly recommended!)
+      - name: office_id
+        type: post
+        label: Employee Office
+        # define filters for posts table
+        filter:
+          - column: post_type
+            value: office
+            compare: =
+          - column: post_status
+            value: publish
+
+      # Dropdown to select an item from any other table 
+      # Works the same as 'post' field type but can be used for tables other than posts
+      - name: user_id
+        type: rel
+        label: User
+        table: users
+
+      # For cases beyond what these fields can offer,
+      # Create your own Field class!
+      # The defined class must be made available via include or autoloading
+      # Before sending to PageCreator.
+      # It is not currently enforced via interface but your custom field class should extend
+      # dwalkr/WPAdminUtility/Field class and at the very least should implement the render() method.
+      - name: custom
+        type: class
+        class: Roots\Sage\Extras\CustomField
+
