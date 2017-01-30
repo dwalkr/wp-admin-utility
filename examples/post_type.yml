@@ -167,5 +167,5 @@ metaboxes:
       # dwalkr/WPAdminUtility/Field class and at the very least should implement the render() method.
       - name: custom
         type: class
-        class: Roots\Sage\Extras\CustomField
+        class: My\Autoloaded\Namespace\CustomField
 
