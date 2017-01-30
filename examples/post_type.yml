@@ -154,6 +154,7 @@ metaboxes:
 
       # Dropdown to select an item from any other table 
       # Works the same as 'post' field type but can be used for tables other than posts
+      # Table name should NOT include table prefix.
       - name: user_id
         type: rel
         label: User
