@@ -48,9 +48,9 @@ $pageCreator->addPostType($config, \dwalkr\WPAdminUtility::FROM_ARRAY);
 
 Almost all options that can be passed into the [register_post_type](https://codex.wordpress.org/Function_Reference/register_post_type) function can be added to the top-level config for a post type.
 
-To understand how to set up meta boxes with custom fields, see the [post type example](...).
+To understand how to set up meta boxes with custom fields, see the [post type example](examples/post_type.yml).
 
-To understand how to set up settings pages, see the [settings page example](...).
+To understand how to set up settings pages, see the [settings page example](examples/settings_page.yml).
 
 ### Adding Custom Meta Boxes to Existing Post Types
 
