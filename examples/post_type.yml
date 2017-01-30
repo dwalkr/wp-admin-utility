@@ -26,28 +26,6 @@ taxonomies:
           plural: categories
       public: true
 
-# basic
-
-#text 
-#textarea 
-#select 
-#checkbox 
-
-# wordpress UI
-
-# editor/wysiwyg
-# attachment 
-
-# components
-# date 
-# daterange 
-# datetime 
-# time 
-
-# post rel
-
-# custom  
-
 # Define one or more meta boxes here to display your custom fields
 # Several 'add_meta_box' options are supported here including context and priority
 metaboxes:
@@ -83,6 +61,7 @@ metaboxes:
             - Dr.
         searchable: true    # Adds a search bar to filter options
 
+      # Alternative Select example
       - name: pets
         type: select
         label: Pets 
