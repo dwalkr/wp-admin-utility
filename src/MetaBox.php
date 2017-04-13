@@ -52,7 +52,7 @@ class MetaBox {
             if ($data === false && property_exists($fieldData, 'default')) {
                 $data = $fieldData->default;
             }
-            $this->fields[] = Field::create($fieldData, $this->templateHandler, $data);
+			$this->fields[] = Field::create($fieldData, $this->templateHandler, $data);
         }
     }
 
@@ -105,4 +105,8 @@ class MetaBox {
             }
         }
     }
+	
+	public function getFields(){
+		return $this->fields;
+	}
 }

@@ -155,7 +155,7 @@ abstract class Field {
         return $this->getConfigData('name');
     }
 
-    protected function getConfigData($key = false, $default = null) {
+    public function getConfigData($key = false, $default = null) {
         if (!$key) {
             return $this->configData;
         }
@@ -176,5 +176,10 @@ abstract class Field {
     public function prepareData($data) {
         return $data;
     }
-
+	
+	public function getListingContent($options = array()){
+		global $post;
+		return get_post_meta($post->ID, $this->getConfigData('name'), true);
+	}
+	
 }
