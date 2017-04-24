@@ -32,12 +32,14 @@ use dwalkr\WPAdminUtility\Field;
  *
  * @author DJ
  */
-class Time extends Field {
+class Time extends Field\DateTime {
+    
+    protected $displayFormat = 'g:i A';
+    protected $defaultSaveFormat = 'H:i';
 
     public function render() {
         require $this->templateHandler->getView('field/wrapper-start');
         require $this->templateHandler->getView('field/time');
         require $this->templateHandler->getView('field/wrapper-end');
     }
-
 }

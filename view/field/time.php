@@ -1,5 +1,4 @@
 <?php
-$format = property_exists($this->configData, 'format') ? $this->configData->format : 'yyyy-mm-dd';
 $eleId = sanitize_title_with_dashes($this->getKey());
 ?>
 

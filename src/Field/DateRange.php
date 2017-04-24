@@ -33,21 +33,45 @@ use dwalkr\WPAdminUtility\Field;
  * @author DJ
  */
 class DateRange extends Field {
+    
+    protected $defaultSaveFormat = 'Y-m-d';
+    protected $displayFormat = 'F j, Y';
 
     public function render() {
         require $this->templateHandler->getView('field/wrapper-start');
         require $this->templateHandler->getView('field/daterange');
         require $this->templateHandler->getView('field/wrapper-end');
     }
+    
+    public function getFormat() {
+        return property_exists($this->configData, 'format') ? $this->configData->format : $this->defaultSaveFormat;
+    }
+    
+    public function formatForUI($date) {
+        if (!$date) {
+            return;
+        }
+        return \DateTime::createFromFormat($this->getFormat(), $date)->format($this->displayFormat);
+    }
 
     public function getStartDate() {
         $data = $this->getFieldValue();
-        return is_array($data) ? $data['start'] : '';
+        return is_array($data) ? $this->formatForUI($data['start']) : '';
     }
 
     public function getEndDate() {
         $data = $this->getFieldValue();
-        return is_array($data) ? $data['end'] : '';
+        return is_array($data) ? $this->formatForUI($data['end']) : '';
+    }
+    
+    public function prepareData($data) {
+        if ($data['start']) {
+            $data['start'] = date($this->getFormat(), strtotime($data['start']));
+        }
+        if ($data['end']) {
+            $data['end'] = date($this->getFormat(), strtotime($data['end']));
+        }
+        return $data;
     }
 
 }
