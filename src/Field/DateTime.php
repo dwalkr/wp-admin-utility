@@ -33,11 +33,32 @@ use dwalkr\WPAdminUtility\Field;
  * @author DJ
  */
 class DateTime extends Field {
+    
+    protected $displayFormat = 'F j, Y g:i A' ;
+    protected $defaultSaveFormat = 'Y-m-d H:i';
 
     public function render() {
         require $this->templateHandler->getView('field/wrapper-start');
         require $this->templateHandler->getView('field/datetime');
         require $this->templateHandler->getView('field/wrapper-end');
+    }
+    
+    public function getFormat() {
+        return property_exists($this->configData, 'format') ? $this->configData->format : $this->defaultSaveFormat;
+    }
+    
+    public function getFieldValue() {
+        if (!$this->data) {
+            return;
+        }
+        return \DateTime::createFromFormat($this->getFormat(), $this->data)->format($this->displayFormat);
+    }
+    
+    public function prepareData($data) {
+        if (!$data) {
+            return;
+        }
+        return date($this->getFormat(), strtotime($data));
     }
 
 }
