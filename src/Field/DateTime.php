@@ -38,6 +38,7 @@ class DateTime extends Field {
     protected $defaultSaveFormat = 'Y-m-d H:i';
 
     public function render() {
+        var_dump($this->data);
         require $this->templateHandler->getView('field/wrapper-start');
         require $this->templateHandler->getView('field/datetime');
         require $this->templateHandler->getView('field/wrapper-end');
@@ -51,7 +52,13 @@ class DateTime extends Field {
         if (!$this->data) {
             return;
         }
-        return \DateTime::createFromFormat($this->getFormat(), $this->data)->format($this->displayFormat);
+        $dt = \DateTime::createFromFormat($this->getFormat(), $this->data);
+        if (!$dt) {
+            $format = 'Y-m-d H:i:s';
+            $formattedDate = date($format, strtotime($this->data));
+            $dt = \DateTime::createFromFormat($format, $formattedDate);
+        }
+        return $dt->format($this->displayFormat);
     }
     
     public function prepareData($data) {
