@@ -1,4 +1,5 @@
 <?php
+
 /*
  * The MIT License
  *
@@ -33,21 +34,20 @@ use dwalkr\WPAdminUtility\Field;
  * @author DJ
  */
 class DateTime extends Field {
-    
-    protected $displayFormat = 'F j, Y g:i A' ;
+
+    protected $displayFormat = 'F j, Y g:i A';
     protected $defaultSaveFormat = 'Y-m-d H:i';
 
     public function render() {
-        var_dump($this->data);
         require $this->templateHandler->getView('field/wrapper-start');
         require $this->templateHandler->getView('field/datetime');
         require $this->templateHandler->getView('field/wrapper-end');
     }
-    
+
     public function getFormat() {
         return property_exists($this->configData, 'format') ? $this->configData->format : $this->defaultSaveFormat;
     }
-    
+
     public function getFieldValue() {
         if (!$this->data) {
             return;
@@ -60,7 +60,7 @@ class DateTime extends Field {
         }
         return $dt->format($this->displayFormat);
     }
-    
+
     public function prepareData($data) {
         if (!$data) {
             return;
