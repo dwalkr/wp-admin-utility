@@ -93,6 +93,9 @@ class MetaBox {
         if (!$post_id) {
             return;
         }
+        if (!isset($_POST['wpau_save_fields'])) {
+            return;
+        }
         foreach ($this->fields as $field) {
             if (!in_array($field->getKey(), $_POST['wpau_save_fields'])) {
                 continue;
