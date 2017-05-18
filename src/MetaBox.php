@@ -94,6 +94,9 @@ class MetaBox {
             return;
         }
         foreach ($this->fields as $field) {
+            if (!in_array($field->getKey(), $_POST['wpau_save_fields'])) {
+                continue;
+            }
             $data = array_key_exists($field->getKey(), $_POST) ? $_POST[$field->getKey()] : '';
             if (method_exists($field, 'save')) {
                 $field->save($data); //for custom junk
