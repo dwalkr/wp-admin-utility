@@ -41,8 +41,8 @@ class Select extends Field {
     }
 
     public function getOptions() {
-		$options = apply_filters('wpadminutility-field-options-'.$this->getConfigData('name'), $this->getConfigData('options'));
-		
+        $options = $this->getConfigData('options');
+        
         if ($this->getConfigData('show_null_option', false)) {
             $nullOption = new \stdClass();
             $nullOption->value = -1;

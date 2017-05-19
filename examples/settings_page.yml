@@ -17,7 +17,6 @@ menu:
         icon: dashicons-chart-pie
         position: 5
     parent: edit.php?post_type=my_post_type   # Adds a sub-item on the specified parent page
-    user: true   # Adds a sub-item to the Users page
 
 # Defines sections of fields
 sections:
