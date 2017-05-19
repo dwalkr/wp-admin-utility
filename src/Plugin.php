@@ -81,7 +81,7 @@ class Plugin {
 
     public function enqueueAssets() {
         global $pagenow;
-        if (!in_array($pagenow, array('post.php', 'post-new.php'))) {
+        if (!in_array($pagenow, array('post.php', 'post-new.php', 'admin.php'))) {
             return;
         }
         $this->registerAssets();
