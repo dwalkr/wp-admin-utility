@@ -30,7 +30,7 @@
         $('#poststuff').on('click', '.ptconfig-attachment-remove', function (e) {
             e.preventDefault();
             var $fieldContainer = $(this).parent('.ptconfig-form-field');
-            $fieldContainer.find('input').val('');
+            $fieldContainer.find('input').not('[name="wpau_save_fields[]"]').val('');
             $fieldContainer.find('img').hide().attr('src', '');
             $fieldContainer.find('.filename').text('').attr('href','').hide();
             $(this).hide();
@@ -38,7 +38,7 @@
     });
     function processFileSelection(attachment) {
         var $fieldContainer = $currentAttachmentField.parent('.ptconfig-form-field');
-        $fieldContainer.find('input:first').val(attachment.url);
+        $fieldContainer.find('input').not('[name="wpau_save_fields[]"]').first().val(attachment.url);
         $fieldContainer.find('input[name$="_id"]').val(attachment.id);
         if (attachment.type === 'image') {
             $fieldContainer.find('img').attr('src', attachment.url).show();
