@@ -81,7 +81,7 @@ class SettingsPage {
             //add submenu page(s)
             $parentPages = is_array($this->getConfigData('menu/parent')) ? $this->getConfigData('menu/parent') : array($this->getConfigData('menu/parent'));
             foreach ($parentPages as $parentSlug) {
-                add_submenu_page($parentSlug, $pageTItle, $menuTitle, $capability, $menuSlug, $callback);
+                add_submenu_page($parentSlug, $pageTitle, $menuTitle, $capability, $menuSlug, $callback);
             }
         }
     }
