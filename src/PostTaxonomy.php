@@ -93,7 +93,7 @@ class PostTaxonomy {
             'popular_items' => 'Popular '.$labels->plural,
             'separate_items_with_commas' => 'Separate ' . $labels->plural . ' with commas',
             'add_or_remove_items' => 'Add or remove '.$labels->plural,
-            'choose_from_most_used' => 'Choose from mose used ' . $labels->plural,
+            'choose_from_most_used' => 'Choose from most used ' . $labels->plural,
             'not_found' => 'No '.$labels->plural . ' found',
         );
     }
