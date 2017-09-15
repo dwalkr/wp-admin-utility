@@ -42,7 +42,7 @@ class MetaBox {
         $this->templateHandler = $templateHandler;
 
         foreach ($this->configData->fields as $fieldData) {
-            if (array_key_exists('post',$_GET)) {
+            if (array_key_exists('post', $_GET)) {
                 $post_id = $_GET['post'];
                 $data = get_post_meta($post_id, $fieldData->name, true);
             } else {
@@ -52,7 +52,7 @@ class MetaBox {
             if ($data === false && property_exists($fieldData, 'default')) {
                 $data = $fieldData->default;
             }
-			$this->fields[] = Field::create($fieldData, $this->templateHandler, $data);
+            $this->fields[] = Field::create($fieldData, $this->templateHandler, $data);
         }
     }
 
@@ -90,13 +90,17 @@ class MetaBox {
     }
 
     public function save($post_id) {
-
-        if (!$post_id) return;
+        if (!$post_id) {
+            return;
+        }
+        if (!isset($_POST['wpau_save_fields'])) {
+            return;
+        }
         foreach ($this->fields as $field) {
-            if(!array_key_exists($field->getKey(), $_POST)) {
+            if (!in_array($field->getKey(), $_POST['wpau_save_fields'])) {
                 continue;
             }
-            $data = $_POST[$field->getKey()];
+            $data = array_key_exists($field->getKey(), $_POST) ? $_POST[$field->getKey()] : '';
             if (method_exists($field, 'save')) {
                 $field->save($data); //for custom junk
             } else {
@@ -105,8 +109,9 @@ class MetaBox {
             }
         }
     }
-	
-	public function getFields(){
-		return $this->fields;
-	}
+
+    public function getFields() {
+        return $this->fields;
+    }
+
 }

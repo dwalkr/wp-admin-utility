@@ -111,13 +111,16 @@ metaboxes:
       - name: birth_date
         type: date
         label: Birth Date
-        format: yyyy-mm-dd  # Optional. Specify date format.
+        # Optional. Specify date format. Should be compatible with PHP DateTime
+        # Date will be saved to postmeta in this format
+        format: Y-m-d
 
       # Time picker with no date
       - name: start_time
         type: time
         label: Work Start Time
-        format: H:i:s       # Optional. Specify time format.
+        # Optional. Specify time format. Should be compatible with PHP DateTime
+        format: H:i:s
 
       # Date+time picker
       - name: staff_meeting
@@ -129,7 +132,8 @@ metaboxes:
       - name: vacation_time
         type: daterange
         label: Vacation Time
-        text_between: To    # Optional. Add some text between the two date fields.
+        # Optional. Add some text between the two date fields.
+        text_between: To
         # 'format' also applies here.
 
 

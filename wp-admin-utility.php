@@ -4,7 +4,7 @@
  * Plugin Name: WordPress Admin Utility
  * Plugin URI:
  * Description: Collection of Utilities to enhance wordpress admin and rapidly create pages
- * Version: 0.1.0
+ * Version: 0.3.1
  * Author: DJ Walker
  */
 
