@@ -149,7 +149,7 @@ metaboxes:
         type: post
         label: Employee Office
         # define filters for posts table
-        filter:
+        filters:
           - column: post_type
             value: office
             compare: =
