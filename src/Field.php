@@ -89,6 +89,8 @@ abstract class Field {
                 return new Field\Editor($fieldConfig, $templateHandler, $data);
             case 'checkbox':
                 return new Field\Checkbox($fieldConfig, $templateHandler, $data);
+			case 'password':
+				return new Field\Password($fieldConfig, $templateHandler, $data);
         }
     }
 
