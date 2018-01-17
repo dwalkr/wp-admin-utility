@@ -40,7 +40,7 @@ $config = [
   'public' => true
   //...
 ];
-$pageCreator->addPostType($config, \dwalkr\WPAdminUtility::FROM_ARRAY);
+$pageCreator->addPostType($config, \dwalkr\WPAdminUtility\PageCreator::FROM_ARRAY);
 
 ```
 
