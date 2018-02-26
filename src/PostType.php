@@ -160,7 +160,8 @@ class PostType {
             $args['taxonomies'] = $data->core_taxonomies;
         }
 
-        return $args;
+        // deep-convert object to array
+        return json_decode(json_encode($args), true);
     }
 
     private static function generateLabelsArray($labels) {
